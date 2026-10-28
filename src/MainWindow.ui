@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+<class>MainWindow</class>
+<widget class="QMainWindow" name="MainWindow">
+<property name="geometry"><rect><x>0</x><y>0</y><width>1500</width><height>900</height></rect></property>
+<property name="windowTitle"><string>PatMax 2D · 边缘梯度形状匹配验证</string></property>
+<widget class="QSplitter" name="centralwidget">
+<property name="orientation"><enum>Qt::Horizontal</enum></property>
+<widget class="QScrollArea" name="controlScroll">
+<property name="minimumSize"><size><width>285</width><height>0</height></size></property>
+<property name="widgetResizable"><bool>true</bool></property>
+<widget class="QWidget" name="controlContent">
+<layout class="QVBoxLayout" name="controlLayout">
+<item><widget class="QGroupBox" name="filesGroup"><property name="title"><string>图像与模板</string></property>
+<layout class="QVBoxLayout" name="filesLayout">
+<item><widget class="QPushButton" name="exampleButton"><property name="text"><string>加载 HALCON rings 示例</string></property></widget></item>
+<item><widget class="QPushButton" name="templateButton"><property name="text"><string>打开模板图像</string></property></widget></item>
+<item><widget class="QPushButton" name="sceneButton"><property name="text"><string>打开待测图像</string></property></widget></item>
+<item><layout class="QHBoxLayout" name="navigationLayout"><item><widget class="QPushButton" name="previousButton"><property name="text"><string>上一张</string></property></widget></item><item><widget class="QPushButton" name="nextButton"><property name="text"><string>下一张</string></property></widget></item></layout></item>
+<item><widget class="QPushButton" name="maskButton"><property name="text"><string>打开可选模板掩膜</string></property></widget></item>
+<item><widget class="QLabel" name="maskPath"><property name="text"><string>未使用掩膜</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+<item><widget class="QLabel" name="roiLabel"><property name="text"><string>在模板图中拖动鼠标框选目标</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+</layout></widget></item>
+<item><widget class="QGroupBox" name="modelGroup"><property name="title"><string>模型 / 梯度边缘</string></property>
+<layout class="QFormLayout" name="modelForm"><item row="0" column="0"><widget class="QLabel" name="lowSpinLabel"><property name="text"><string>边缘低阈值</string></property></widget></item>
+<item row="0" column="1"><widget class="QSpinBox" name="lowSpin"><property name="minimum"><number>0</number></property><property name="maximum"><number>1024</number></property><property name="value"><number>25</number></property></widget></item>
+<item row="1" column="0"><widget class="QLabel" name="highSpinLabel"><property name="text"><string>边缘高阈值</string></property></widget></item>
+<item row="1" column="1"><widget class="QSpinBox" name="highSpin"><property name="minimum"><number>1</number></property><property name="maximum"><number>2048</number></property><property name="value"><number>70</number></property></widget></item>
+<item row="2" column="0"><widget class="QLabel" name="contrastSpinLabel"><property name="text"><string>最小梯度</string></property></widget></item>
+<item row="2" column="1"><widget class="QSpinBox" name="contrastSpin"><property name="minimum"><number>0</number></property><property name="maximum"><number>1024</number></property><property name="value"><number>16</number></property></widget></item>
+<item row="3" column="0"><widget class="QLabel" name="featuresSpinLabel"><property name="text"><string>最多特征点</string></property></widget></item>
+<item row="3" column="1"><widget class="QSpinBox" name="featuresSpin"><property name="minimum"><number>16</number></property><property name="maximum"><number>1000</number></property><property name="value"><number>180</number></property></widget></item>
+<item row="4" column="0"><widget class="QLabel" name="levelsSpinLabel"><property name="text"><string>最多金字塔层</string></property></widget></item>
+<item row="4" column="1"><widget class="QSpinBox" name="levelsSpin"><property name="minimum"><number>1</number></property><property name="maximum"><number>6</number></property><property name="value"><number>3</number></property></widget></item>
+<item row="5" column="0"><widget class="QLabel" name="binsSpinLabel"><property name="text"><string>方向量化数</string></property></widget></item>
+<item row="5" column="1"><widget class="QSpinBox" name="binsSpin"><property name="minimum"><number>4</number></property><property name="maximum"><number>32</number></property><property name="value"><number>16</number></property><property name="singleStep"><number>4</number></property></widget></item>
+<item row="6" column="0"><widget class="QLabel" name="polarityLabel"><property name="text"><string>极性</string></property></widget></item>
+<item row="6" column="1"><widget class="QComboBox" name="polarityCombo"><item><property name="text"><string>保持梯度极性</string></property></item><item><property name="text"><string>忽略局部极性</string></property></item></widget></item>
+</layout></widget></item>
+<item><widget class="QGroupBox" name="searchGroup"><property name="title"><string>搜索范围</string></property>
+<layout class="QFormLayout" name="searchForm"><item row="0" column="0"><widget class="QLabel" name="angleMinSpinLabel"><property name="text"><string>起始角度 (°)</string></property></widget></item>
+<item row="0" column="1"><widget class="QDoubleSpinBox" name="angleMinSpin"><property name="minimum"><double>-180</double></property><property name="maximum"><double>180</double></property><property name="value"><double>-180</double></property><property name="singleStep"><double>5</double></property><property name="decimals"><number>1</number></property></widget></item>
+<item row="1" column="0"><widget class="QLabel" name="angleMaxSpinLabel"><property name="text"><string>结束角度 (°)</string></property></widget></item>
+<item row="1" column="1"><widget class="QDoubleSpinBox" name="angleMaxSpin"><property name="minimum"><double>-180</double></property><property name="maximum"><double>180</double></property><property name="value"><double>180</double></property><property name="singleStep"><double>5</double></property><property name="decimals"><number>1</number></property></widget></item>
+<item row="2" column="0"><widget class="QLabel" name="angleStepSpinLabel"><property name="text"><string>角度步长 (°)</string></property></widget></item>
+<item row="2" column="1"><widget class="QDoubleSpinBox" name="angleStepSpin"><property name="minimum"><double>0.5</double></property><property name="maximum"><double>90</double></property><property name="value"><double>15</double></property><property name="singleStep"><double>1</double></property><property name="decimals"><number>1</number></property></widget></item>
+<item row="3" column="0"><widget class="QLabel" name="scaleMinSpinLabel"><property name="text"><string>最小尺度</string></property></widget></item>
+<item row="3" column="1"><widget class="QDoubleSpinBox" name="scaleMinSpin"><property name="minimum"><double>0.1</double></property><property name="maximum"><double>4</double></property><property name="value"><double>0.8</double></property><property name="singleStep"><double>0.05</double></property><property name="decimals"><number>2</number></property></widget></item>
+<item row="4" column="0"><widget class="QLabel" name="scaleMaxSpinLabel"><property name="text"><string>最大尺度</string></property></widget></item>
+<item row="4" column="1"><widget class="QDoubleSpinBox" name="scaleMaxSpin"><property name="minimum"><double>0.1</double></property><property name="maximum"><double>4</double></property><property name="value"><double>1.2</double></property><property name="singleStep"><double>0.05</double></property><property name="decimals"><number>2</number></property></widget></item>
+<item row="5" column="0"><widget class="QLabel" name="scaleStepSpinLabel"><property name="text"><string>尺度步长</string></property></widget></item>
+<item row="5" column="1"><widget class="QDoubleSpinBox" name="scaleStepSpin"><property name="minimum"><double>0.01</double></property><property name="maximum"><double>1</double></property><property name="value"><double>0.1</double></property><property name="singleStep"><double>0.01</double></property><property name="decimals"><number>2</number></property></widget></item>
+<item row="6" column="0"><widget class="QLabel" name="minScoreSpinLabel"><property name="text"><string>最低分数</string></property></widget></item>
+<item row="6" column="1"><widget class="QDoubleSpinBox" name="minScoreSpin"><property name="minimum"><double>0</double></property><property name="maximum"><double>1</double></property><property name="value"><double>0.58</double></property><property name="singleStep"><double>0.02</double></property><property name="decimals"><number>2</number></property></widget></item>
+<item row="7" column="0"><widget class="QLabel" name="maxOverlapSpinLabel"><property name="text"><string>最大重叠率</string></property></widget></item>
+<item row="7" column="1"><widget class="QDoubleSpinBox" name="maxOverlapSpin"><property name="minimum"><double>0</double></property><property name="maximum"><double>1</double></property><property name="value"><double>0.35</double></property><property name="singleStep"><double>0.05</double></property><property name="decimals"><number>2</number></property></widget></item>
+<item row="8" column="0"><widget class="QLabel" name="maxMatchesSpinLabel"><property name="text"><string>最多结果</string></property></widget></item>
+<item row="8" column="1"><widget class="QSpinBox" name="maxMatchesSpin"><property name="minimum"><number>1</number></property><property name="maximum"><number>100</number></property><property name="value"><number>20</number></property></widget></item>
+<item row="9" column="0" colspan="2"><widget class="QCheckBox" name="fastRefineCheck"><property name="text"><string>快速细化（弱目标可能漏检）</string></property><property name="toolTip"><string>在低层剔除低分候选，只在剩余候选附近计算边缘响应。</string></property><property name="checked"><bool>false</bool></property></widget></item>
+</layout></widget></item>
+<item><widget class="QPushButton" name="createButton"><property name="text"><string>建立轮廓模型</string></property><property name="minimumSize"><size><width>0</width><height>35</height></size></property></widget></item>
+<item><widget class="QPushButton" name="findButton"><property name="text"><string>查找目标</string></property><property name="minimumSize"><size><width>0</width><height>38</height></size></property><property name="styleSheet"><string>font-weight: 600; background-color: #d5e9f7;</string></property></widget></item>
+<item><widget class="QLabel" name="statusLabel"><property name="text"><string>请选择图像和模板区域</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+<item><spacer name="controlSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+</layout></widget></widget>
+<widget class="QWidget" name="templatePanel">
+<layout class="QVBoxLayout" name="templateLayout" stretch="0,0,1">
+<item><widget class="QLabel" name="templateTitle"><property name="text"><string>模板图像 · 拖拽框选 ROI</string></property><property name="font"><font><pointsize>11</pointsize><bold>true</bold></font></property></widget></item>
+<item><widget class="QLabel" name="templatePath"><property name="wordWrap"><bool>true</bool></property></widget></item>
+<item><widget class="ImageView" name="templateView"/></item>
+</layout></widget>
+<widget class="QWidget" name="scenePanel">
+<layout class="QVBoxLayout" name="sceneLayout" stretch="0,0,1,0">
+<item><widget class="QLabel" name="sceneTitle"><property name="text"><string>待测图像 · 匹配结果</string></property><property name="font"><font><pointsize>11</pointsize><bold>true</bold></font></property></widget></item>
+<item><widget class="QLabel" name="scenePath"><property name="wordWrap"><bool>true</bool></property></widget></item>
+<item><widget class="ImageView" name="sceneView"/></item>
+<item><widget class="QTableWidget" name="resultsTable">
+<property name="maximumSize"><size><width>16777215</width><height>190</height></size></property>
+<property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+<property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+<attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+<column><property name="text"><string>序号</string></property></column>
+<column><property name="text"><string>X</string></property></column>
+<column><property name="text"><string>Y</string></property></column>
+<column><property name="text"><string>角度°</string></property></column>
+<column><property name="text"><string>尺度</string></property></column>
+<column><property name="text"><string>分数</string></property></column>
+</widget></item>
+</layout></widget>
+</widget>
+</widget>
+<customwidgets><customwidget><class>ImageView</class><extends>QWidget</extends><header>ImageView.h</header></customwidget></customwidgets>
+<resources/>
+<connections/>
+</ui>
